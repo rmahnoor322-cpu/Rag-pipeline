@@ -1,0 +1,297 @@
+{
+  "name": "Research and analyst agent",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "eeb7055b-6e48-417a-8d27-c5964c1f2037",
+      "name": "When chat message received",
+      "webhookId": "e62e3771-712c-4506-b3da-0c508427f2dd"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        352,
+        224
+      ],
+      "id": "13a9ed7d-08e1-4194-9a6f-85497289a29a",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1.1,
+      "position": [
+        480,
+        224
+      ],
+      "id": "41440b7f-941a-45ca-82d6-00dc3c66c239",
+      "name": "Think"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are an AI Analyst Agent.\n\nAnalyze information carefully, identify patterns, summarize findings, detect issues, and provide clear logical insights.\n\nRules:\n- Be accurate, concise, and structured\n- Do not assume missing information\n- Explain complex topics simply\n- Highlight risks, errors, trends, and recommendations\n- Use bullet points or tables when useful\n- Focus on actionable insights instead of generic responses\n\nResponse Format:\n1. Summary\n2. Key Findings\n3. Issues/Risks\n4. Recommendations\n5. Conclusion"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        352,
+        0
+      ],
+      "id": "17fd4d28-158f-4f05-9074-17011005dcf4",
+      "name": "analyst agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        624,
+        432
+      ],
+      "id": "a3ebfbd4-723e-4f0b-ad98-b8ebf25c8ee4",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "mRgJSCaNhHRiJfV1",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
+      "typeVersion": 1,
+      "position": [
+        752,
+        432
+      ],
+      "id": "c61705c5-d07c-4b97-b068-20d826e6632c",
+      "name": "SerpAPI",
+      "credentials": {
+        "serpApi": {
+          "id": "7isgM1kVz9yEtJoF",
+          "name": "SerpAPI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        224,
+        224
+      ],
+      "id": "5dc97731-f9f2-4f08-b308-f0b6f0f686cf",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "5FnFw3QcKBbWYwD2",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "You are an advanced research agent متخصص in gathering, verifying, and synthesizing information from multiple sources.\n\nObjectives: deliver accurate, relevant, up-to-date insights; distinguish facts vs assumptions; present balanced perspectives.\n\nBehavior: be concise, structured, and evidence-based; avoid speculation (label hypotheses); flag uncertainty; do not fabricate.\n\nOutput (MAX 10 lines total):\n1. Summary – core answer\n2. Key Findings – top 2–3 insights\n3. Analysis – brief context\n4. Evidence – source types or origins\n5. Gaps – uncertainties/limits\n6. Next Steps – follow-up research\n\nStandards: prioritize credible sources; cross-check; note recency; identify bias where relevant.\n\nRules: break complex topics into essentials only; avoid filler; compress aggressively while preserving meaning.\n\nIf unclear: ask a clarifying question instead of guessing.",
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('query', 'The research query or question to investigate') }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 3,
+      "position": [
+        608,
+        224
+      ],
+      "id": "c2e8889a-b6f1-462b-879a-0de59755ad23",
+      "name": "Research agent"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1aBp8BMfnG_sMHRSgnUIPZMFGKW21L1S9H2vdB7y8BPM",
+          "mode": "list",
+          "cachedResultName": "AI AGENTS LOGS",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1aBp8BMfnG_sMHRSgnUIPZMFGKW21L1S9H2vdB7y8BPM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": " Tracker 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1aBp8BMfnG_sMHRSgnUIPZMFGKW21L1S9H2vdB7y8BPM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Input": "={{ $('When chat message received').item.json.chatInput }}",
+            "Output": "={{ $json.output }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Input",
+              "displayName": "Input",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Output",
+              "displayName": "Output",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        704,
+        0
+      ],
+      "id": "6872e134-253e-4de6-97c9-3382dfe2acdb",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "CCyfzutiXLvuVOs1",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "analyst agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "analyst agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "analyst agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Research agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SerpAPI": {
+      "ai_tool": [
+        [
+          {
+            "node": "Research agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "analyst agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Research agent": {
+      "ai_tool": [
+        [
+          {
+            "node": "analyst agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "analyst agent": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "845ea4f5-d90a-4a11-83d2-84c8dc92cb3e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f99c50467710e100c5b9b7dc1b147643f5655c28881c6d788ea7e4fc5981bad6"
+  },
+  "id": "dDCelywaAAC4g46F",
+  "tags": []
+}
